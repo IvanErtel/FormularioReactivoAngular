@@ -1,0 +1,35 @@
+<div class="container" class="p-3 mt-2 text-white">
+    <div class="row align-items-center">
+        <div class="col-3"></div>
+        <div class="col-3 bg-primary">
+        <form #obligatorio="ngForm" autocomplete="off" (ngSubmit)="enviar()" class="text-aling-center">
+        <!-- CAMPO NOMBRE -->
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input 
+               #nombreControl="ngModel"
+               type="text"
+               id="nombre"
+               class="form-control"
+               [(ngModel)]="formu.nombre"
+               name="nombre"
+               [required]="true"
+               minlength="3"
+            >
+            <div *ngIf="nombreControl.invalid" class="alert alert-danger mt-1">
+                <!-- Advierte que este campo es requerido -->
+               <div *ngIf="nombreControl.errors?.['required']">
+                Campo Requerido
+               </div>
+               <!-- Advierte que este campo debe tener al menos 3 caracteres -->
+               <div *ngIf="nombreControl.errors?.['minlength']">
+                Este campo debe poseer al menos 3 caracteres
+               </div>
+            </div>
+            <!-- el boton sera true es decir estara deshabilitado hasta que se cumplan las condiciones de arriba, linea 21 y 25 -->
+            <button class="btn btn-success m-2" [disabled]="obligatorio.invalid">Enviar</button>
+        </div>
+    </form>
+    </div>
+</div>
+</div>
