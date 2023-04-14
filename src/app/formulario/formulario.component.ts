@@ -19,8 +19,11 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  enviar(){
-    console.log(this.formu)
+  enviar(obligatorio:any){
+    let datos = {...this.formu}
+    console.log(datos)
+    // Resetea los campos y estados del formulario
+    obligatorio.form.reset()
   }
 
 }
