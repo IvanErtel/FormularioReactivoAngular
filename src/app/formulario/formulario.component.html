@@ -1,7 +1,8 @@
-<div class="container" class="p-3 mt-2 text-white">
+<div class="d-flex container justify-content-center p-3 mt-2 text-white">
     <div class="row align-items-center">
-        <div class="col-3"></div>
-        <div class="col-3 bg-primary">
+        <div class="col-12 bg-primary">
+            <h1>Formulario Component <h3> Simple con validaciones</h3></h1>
+            <hr>
             <form #obligatorio="ngForm" autocomplete="off" (ngSubmit)="enviar(obligatorio)" class="text-aling-center">
                 <!-- CAMPO NOMBRE -->
                 <div class="form-group">
@@ -25,9 +26,29 @@
                     <input #apellidoControl="ngModel" type="text" id="apellido" class="form-control"
                         [(ngModel)]="formu.apellido" name="apellido" [required]="true" minlength="3">
                     <div *ngIf="apellidoControl.invalid && apellidoControl.dirty" class="alert alert-danger mt-1">
+                        <!-- Advierte que este campo es requerido -->
+                        <div *ngIf="apellidoControl.errors?.['required']">
+                            Campo Requerido
+                        </div>
                         <!-- Advierte que este campo debe tener al menos 3 caracteres -->
                         <div *ngIf="apellidoControl.errors?.['minlength']">
                             Este campo debe poseer al menos 3 caracteres
+                        </div>
+                    </div>
+                </div>
+                <!-- CAMPO Mail -->
+                <div class="form-group">
+                    <label for="email">email</label>
+                    <input #emailControl="ngModel" type="text" id="email" class="form-control"
+                        [(ngModel)]="formu.email" name="email" [required]="true" email="">
+                    <div *ngIf="emailControl.invalid && emailControl.dirty" class="alert alert-danger mt-1">
+                        <!-- Advierte que este campo es requerido -->
+                        <div *ngIf="emailControl.errors?.['required']">
+                            Campo Requerido
+                        </div>
+                        <!-- Advierte que este campo debe tener al menos 3 caracteres -->
+                        <div *ngIf="emailControl.errors?.['email']">
+                            Ingrese un mail valido
                         </div>
                     </div>
                 </div>
@@ -35,14 +56,55 @@
                 <div class="form-group">
                     <label for="edad">Edad</label>
                     <input #edadControl="ngModel" type="number" id="edad" class="form-control" [(ngModel)]="formu.edad"
-                      name="edad" [required]="true" pattern="^\d{2}$">
+                        name="edad" [required]="true" pattern="^\d{2}$">
                     <div *ngIf="edadControl.invalid && edadControl.dirty" class="alert alert-danger mt-1">
-                      <div *ngIf="edadControl.errors?.['pattern']">
-                        Este campo debe contener exactamente 2 dígitos.
-                      </div>
+                        <div *ngIf="edadControl.errors?.['pattern']">
+                            Este campo debe contener exactamente 2 dígitos.
+                        </div>
+                        <div *ngIf="edadControl.errors?.['required']">
+                            Campo Requerido
+                        </div>
                     </div>
-                  </div>
+                </div>
+                <!-- CAMPO Password -->
+                <div class="form-group">
+                    <label for="password">password</label>
+                    <input #passwordControl="ngModel" type="password" id="password" class="form-control"
+                        [(ngModel)]="formu.password" name="password" [required]="true">
+                    <div *ngIf="passwordControl.invalid && passwordControl.dirty" class="alert alert-danger mt-1">
+                        <div *ngIf="apellidoControl.errors?.['required']">
+                            Campo Requerido
+                        </div>
+                    </div>
+                </div>
                 <!-- el boton sera true es decir estara deshabilitado hasta que se cumplan las condiciones de arriba, linea 21 y 25 -->
+                <button class="btn btn-success m-2" [disabled]="obligatorio.invalid">Enviar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+<div class="d-flex container justify-content-center p-3 mt-2 text-white">
+    <div class="row align-items-center">
+        <div class="col-12 bg-secondary">
+            <h1>Formulario Reactivo</h1><hr>
+            <form #obligatorio="ngForm" autocomplete="off" (ngSubmit)="enviar(obligatorio)" class="text-aling-center">
+                <!-- CAMPO NOMBRE -->
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input #nombreControl="ngModel" type="text" id="nombre" class="form-control"
+                        [(ngModel)]="formu.nombre" name="nombre" [required]="true" minlength="3">
+                    <div *ngIf="nombreControl.invalid && nombreControl.dirty" class="alert alert-danger mt-1">
+                        <!-- Advierte que este campo es requerido -->
+                        <div *ngIf="nombreControl.errors?.['required']">
+                            Campo Requerido
+                        </div>
+                        <!-- Advierte que este campo debe tener al menos 3 caracteres -->
+                        <div *ngIf="nombreControl.errors?.['minlength']">
+                            Este campo debe poseer al menos 3 caracteres
+                        </div>
+                    </div>
+                </div>
                 <button class="btn btn-success m-2" [disabled]="obligatorio.invalid">Enviar</button>
             </form>
         </div>
