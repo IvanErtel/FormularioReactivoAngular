@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-formulario',
@@ -20,10 +20,13 @@ export class FormularioComponent implements OnInit {
 
   constructor(private fb : FormBuilder) { 
     this.f = fb.group({
-      nombre: '',
+      nombre: ['', Validators.required],
       apellido: '',
       edad: '',
+      contacto: fb.group({
       email: '',
+      telefono:""  
+      }),
       password: ''
     })
   }
@@ -36,5 +39,8 @@ export class FormularioComponent implements OnInit {
     // Resetea los campos y estados del formulario
     obligatorio.form.reset()
   }
-
+  EnviarRF(){
+    let datos = this.f.value;
+    console.log(datos);
+  }
 }

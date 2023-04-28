@@ -1,7 +1,8 @@
 <div class="d-flex container justify-content-center p-3 mt-2 text-white">
     <div class="row align-items-center">
         <div class="col-12 bg-primary">
-            <h1>Formulario Component <h3> Simple con validaciones</h3></h1>
+            <h1>Formulario Component <h3> Simple con validaciones</h3>
+            </h1>
             <hr>
             <form #obligatorio="ngForm" autocomplete="off" (ngSubmit)="enviar(obligatorio)" class="text-aling-center">
                 <!-- CAMPO NOMBRE -->
@@ -39,8 +40,8 @@
                 <!-- CAMPO Mail -->
                 <div class="form-group">
                     <label for="email">email</label>
-                    <input #emailControl="ngModel" type="text" id="email" class="form-control"
-                        [(ngModel)]="formu.email" name="email" [required]="true" email="">
+                    <input #emailControl="ngModel" type="text" id="email" class="form-control" [(ngModel)]="formu.email"
+                        name="email" [required]="true" email="">
                     <div *ngIf="emailControl.invalid && emailControl.dirty" class="alert alert-danger mt-1">
                         <!-- Advierte que este campo es requerido -->
                         <div *ngIf="emailControl.errors?.['required']">
@@ -84,28 +85,66 @@
     </div>
 </div>
 <br>
+<!-- ----------------------------FORMULARIO REACTIVO----------------------------- -->
 <div class="d-flex container justify-content-center p-3 mt-2 text-white">
     <div class="row align-items-center">
         <div class="col-12 bg-secondary">
-            <h1>Formulario Reactivo</h1><hr>
-            <form #obligatorio="ngForm" autocomplete="off" (ngSubmit)="enviar(obligatorio)" class="text-aling-center">
+
+            <h1>Formulario Reactivo</h1>
+            <hr>
+
+            <form [formGroup]="f" autocomplete="off" class="text-aling-center">
                 <!-- CAMPO NOMBRE -->
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input #nombreControl="ngModel" type="text" id="nombre" class="form-control"
-                        [(ngModel)]="formu.nombre" name="nombre" [required]="true" minlength="3">
-                    <div *ngIf="nombreControl.invalid && nombreControl.dirty" class="alert alert-danger mt-1">
-                        <!-- Advierte que este campo es requerido -->
+                    <input type="text" id="nombreRF" class="form-control" formControlName="nombre">
+
+                    <!-- <div *ngIf="nombreControl.invalid && nombreControl.dirty" class="alert alert-danger mt-1">
                         <div *ngIf="nombreControl.errors?.['required']">
                             Campo Requerido
                         </div>
-                        <!-- Advierte que este campo debe tener al menos 3 caracteres -->
                         <div *ngIf="nombreControl.errors?.['minlength']">
                             Este campo debe poseer al menos 3 caracteres
                         </div>
-                    </div>
+                    </div> -->
                 </div>
-                <button class="btn btn-success m-2" [disabled]="obligatorio.invalid">Enviar</button>
+                <!-- CAMPO APELLIDO -->
+                <div class="form-group">
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id="apellidoRF" class="form-control" formControlName="apellido">
+                    <div></div>
+                </div>
+                <!-- CAMPO EDAD -->
+                <div class="form-group">
+                    <label for="edad">Edad</label>
+                    <input type="number" id="edadRF" class="form-control" formControlName="edad">
+                    <div></div>
+                </div>
+                <div formGroupName="contacto">
+                <!-- CAMPO EMAIL -->
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="emailRF" class="form-control" formControlName="email">
+                    <div></div>
+                </div>
+                <!-- CAMPO TELEFONO -->
+                <div class="form-group">
+                    <label for="telefono">telefono</label>
+                    <input type="tel" id="telefonoRF" class="form-control" formControlName="telefono">
+                    <div></div>
+                 </div>
+            </div>
+                <!-- CAMPO PASSWORD -->
+                <div class="form-group">
+                    <label for="password">password</label>
+                    <input type="password" id="passwordRF" class="form-control" formControlName="password">
+                    <div></div>
+                </div>
+
+                <button type="submit" class="btn btn-success m-2" [disabled]="f.invalid"
+                    (click)="EnviarRF()">Enviar</button>
+
+                <pre><p>{{f.value | json}}</p></pre>
             </form>
         </div>
     </div>
