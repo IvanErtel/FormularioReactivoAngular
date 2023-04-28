@@ -8,24 +8,29 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FormularioComponent implements OnInit {
 
-  formu= {
+  formu = {
     nombre: '',
     apellido: '',
     edad: '',
     email: '',
     password: ''
   }
-  
-  f: FormGroup
 
-  constructor(private fb : FormBuilder) { 
+  f: FormGroup
+  cantMinCar: number = 3;
+  cantMaxCar: number = 12
+  constructor(private fb: FormBuilder) {
     this.f = fb.group({
-      nombre: ['', Validators.required],
+      nombre: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(this.cantMinCar),
+        Validators.maxLength(this.cantMaxCar)
+      ])],
       apellido: '',
       edad: '',
       contacto: fb.group({
-      email: '',
-      telefono:""  
+        email: '',
+        telefono: ""
       }),
       password: ''
     })
@@ -33,13 +38,13 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  enviar(obligatorio:any){
-    let datos = {...this.formu}
+  enviar(obligatorio: any) {
+    let datos = { ...this.formu }
     console.log(datos)
     // Resetea los campos y estados del formulario
     obligatorio.form.reset()
   }
-  EnviarRF(){
+  EnviarRF() {
     let datos = this.f.value;
     console.log(datos);
   }

@@ -98,15 +98,16 @@
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
                     <input type="text" id="nombreRF" class="form-control" formControlName="nombre">
+                    <div *ngIf="f.controls['nombre'].errors && f.controls['nombre'].dirty" class="alert alert-danger mt-1">
+                     <div *ngIf="f.controls['nombre'].errors['required']">Campo Requerido</div>
+                     <div *ngIf="f.controls['nombre'].errors['minlength']">
+                        Este campo debe poseer al menos {{f.controls['nombre'].errors['minlength'].requiredLength}} caracteres
+                     </div>
+                     <div *ngIf="f.controls['nombre'].errors['maxlength']">
+                        Este campo debe poseer debe contener como maximo {{f.controls['nombre'].errors['maxlength'].actualLength}} caracteres
+                     </div>
+                    </div>
 
-                    <!-- <div *ngIf="nombreControl.invalid && nombreControl.dirty" class="alert alert-danger mt-1">
-                        <div *ngIf="nombreControl.errors?.['required']">
-                            Campo Requerido
-                        </div>
-                        <div *ngIf="nombreControl.errors?.['minlength']">
-                            Este campo debe poseer al menos 3 caracteres
-                        </div>
-                    </div> -->
                 </div>
                 <!-- CAMPO APELLIDO -->
                 <div class="form-group">
@@ -144,8 +145,9 @@
                 <button type="submit" class="btn btn-success m-2" [disabled]="f.invalid"
                     (click)="EnviarRF()">Enviar</button>
 
-                <pre><p>{{f.value | json}}</p></pre>
-            </form>
+                    <pre><p>{{f.controls['nombre'].errors | json}}</p></pre>
+                    <pre><p>{{f.value | json}}</p></pre>
+                </form>
         </div>
     </div>
 </div>
